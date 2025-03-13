@@ -1,0 +1,32 @@
+﻿@model ExemploProjeto.Models.Emprestimo
+
+@{
+    ViewData["Title"] = "Novo Empréstimo";
+}
+
+<h2>Registrar Empréstimo</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label>Usuário:</label>
+        <select name="idUsuario" required>
+            @foreach (var usuario in ViewBag.Usuarios)
+            {
+                <option value="@usuario.IdUsuario">@usuario.NomeUsuario</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label>Livros:</label>
+        @foreach (var livro in ViewBag.Livros)
+        {
+            <div>
+                <input type="checkbox" name="livrosSelecionados" value="@livro.IdLivro" />
+                @livro.NomeLivro
+            </div>
+        }
+    </div>
+
+    <button type="submit">Finalizar Empréstimo</button>
+</form>

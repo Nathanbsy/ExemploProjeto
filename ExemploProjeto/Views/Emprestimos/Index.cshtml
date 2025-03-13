@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ExemploProjeto.Models.Emprestimo>
+
+@{
+    ViewData["Title"] = "Lista de Empréstimos";
+}
+
+<h2>Lista de Empréstimos</h2>
+
+@if (ViewBag.TemAtraso == true)
+{
+    <div class="alert alert-danger"> 
+        <strong>Atenção!</strong> Existem empréstimos atrasados. Verifique e tome as medidas necessárias.
+    </div> // essa mensagem aparece na tela do emprestimo
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Usuário</th>
+            <th>Data do Empréstimo</th>
+            <th>Data de Devolução</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emprestimo in Model)
+        {
+            // if para o atraso do livro 
+            bool estaAtrasado = emprestimo.StatusEmprestimo == "Ativo" && emprestimo.DataDevolucao < DateTime.Now;
+            string classeLinha = estaAtrasado ? "table-danger" : "";
+            <tr class="@classeLinha">
+                <td>@emprestimo.Usuario.NomeUsuario</td>
+                <td>@emprestimo.DataEmprestimo.ToString("dd/MM/yyyy")</td>
+                <td>@emprestimo.DataDevolucao.ToString("dd/MM/yyyy")</td>
+                <td>@emprestimo.StatusEmprestimo</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@emprestimo.IdEmprestimo" class="btn btn-info">Detalhes</a>
+
+                    @if (emprestimo.StatusEmprestimo == "Ativo")
+                    {
+                        <form asp-action="Devolver" method="post" style="display:inline;" onsubmit="return confirmarDevolucao()">
+                            <input type="hidden" name="id" value="@emprestimo.IdEmprestimo" />
+                            <button type="submit" class="btn btn-warning">Devolver</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-success">Novo Empréstimo</a>
+
+<script>
+    function confirmarDevolucao() {
+        return confirm("Deseja confirmar a devolução?");
+    }
+</script>

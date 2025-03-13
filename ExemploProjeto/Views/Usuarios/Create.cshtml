@@ -1,0 +1,48 @@
+﻿@model ExemploProjeto.Models.Usuario
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomeUsuario" class="control-label"></label>
+                <input asp-for="NomeUsuario" class="form-control" />
+                <span asp-validation-for="NomeUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailUsuario" class="control-label"></label>
+                <input asp-for="EmailUsuario" class="form-control" />
+                <span asp-validation-for="EmailUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TelUsuario" class="control-label"></label>
+                <input asp-for="TelUsuario" class="form-control" />
+                <span asp-validation-for="TelUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnderecoUsuario" class="control-label"></label>
+                <input asp-for="EnderecoUsuario" class="form-control" />
+                <span asp-validation-for="EnderecoUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

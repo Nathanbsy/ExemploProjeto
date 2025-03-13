@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ExemploProjeto.Models.Livro>
+
+<h2>Lista de Livros</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Gênero</th>
+            <th>Autor</th>
+            <th>Editora</th>
+            <th>Edição</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var livro in Model)
+        {
+            <tr>
+                <td>@livro.NomeLivro</td>
+                <td>@(livro.Genero != null ? livro.Genero.NomeGenero : "Sem Gênero")</td>
+                <td>@(livro.Autor != null ? livro.Autor.NomeAutor : "Sem Autor")</td>
+                <td>@(livro.Editora != null ? livro.Editora.NomeEditora : "Sem Editora")</td>
+                <td>@livro.EdicaoLivro</td>
+                <td>@livro.StatusLivro</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@livro.IdLivro" class="btn btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@livro.IdLivro" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Adicionar Novo Livro</a>
